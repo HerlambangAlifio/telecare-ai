@@ -11,20 +11,27 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:telehalth_aplikasi/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Bottom navigation switches between home and consultation', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const TeleCareApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('TeleCare AI'), findsOneWidget);
+    expect(find.text('Konsultasi dengan Asisten AI'), findsOneWidget);
+    expect(find.text('Konsultasi Dokter'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.byType(NavigationDestination).at(1));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Pilih jenis konsultasi'), findsOneWidget);
+    expect(find.text('Konsultasi dengan Asisten AI'), findsOneWidget);
+
+    await tester.tap(find.byType(NavigationDestination).at(0));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('Konsultasi Kesehatan Lebih Mudah dari Mana Saja'),
+      findsOneWidget,
+    );
   });
 }
