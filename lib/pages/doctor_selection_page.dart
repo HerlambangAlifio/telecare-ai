@@ -1,20 +1,20 @@
+
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
-import 'doctor_chat_page.dart';
+import 'consultation_payment_page.dart';
 
 class DoctorSelectionPage extends StatelessWidget {
   const DoctorSelectionPage({super.key});
 
   static const Color background = Color(0xFFF6F9FF);
   static const Color lightBlue = Color(0xFFEAF3FF);
-  static const Color teal = Color(0xFF0E9C8B);
 
-  void _startConsultation(BuildContext context) {
+  void _openPayment(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const DoctorChatPage(role: 'pasien'),
+        builder: (_) => const ConsultationPaymentPage(),
       ),
     );
   }
@@ -22,46 +22,49 @@ class DoctorSelectionPage extends StatelessWidget {
   Widget _infoItem({
     required IconData icon,
     required String title,
-    required String subtitle,
+    required String description,
   }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 42,
-          height: 42,
-          decoration: BoxDecoration(
-            color: lightBlue,
-            borderRadius: BorderRadius.circular(13),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 17),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 42,
+            height: 42,
+            decoration: BoxDecoration(
+              color: lightBlue,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: blue),
           ),
-          child: Icon(icon, color: blue, size: 22),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: navy,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: navy,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                subtitle,
-                style: const TextStyle(
-                  color: Colors.blueGrey,
-                  fontSize: 12,
-                  height: 1.5,
+                const SizedBox(height: 5),
+                Text(
+                  description,
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 12,
+                    height: 1.5,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -69,56 +72,71 @@ class DoctorSelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
+
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: navy,
-        surfaceTintColor: Colors.white,
         title: const Text(
           'Pilih Dokter',
           style: TextStyle(
-            fontSize: 19,
             fontWeight: FontWeight.bold,
+            fontSize: 19,
           ),
         ),
+        foregroundColor: navy,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
       ),
+
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(18, 22, 18, 30),
+          padding: const EdgeInsets.all(18),
           children: [
             const Text(
               'Konsultasi dengan Dokter',
               style: TextStyle(
-                color: navy,
                 fontSize: 23,
                 fontWeight: FontWeight.w800,
+                color: navy,
               ),
             ),
-            const SizedBox(height: 8),
+
+            const SizedBox(height: 7),
+
             const Text(
-              'Pilih dokter untuk mendapatkan layanan '
-              'konsultasi kesehatan ibu dan kehamilan.',
+              'Pilih dokter untuk berkonsultasi '
+              'mengenai kesehatan ibu dan kehamilan.',
               style: TextStyle(
-                color: Colors.blueGrey,
                 fontSize: 13,
+                color: Colors.blueGrey,
                 height: 1.5,
               ),
             ),
-            const SizedBox(height: 23),
+
+            const SizedBox(height: 22),
+
+            // INFORMASI POLI
             Container(
-              padding: const EdgeInsets.all(17),
+              padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFFD7EAFF), Color(0xFFEEF8FF)],
+                  colors: [
+                    Color(0xFFD6E9FF),
+                    Color(0xFFF1F8FF),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Row(
                 children: [
-                  Icon(Icons.pregnant_woman_rounded, color: blue, size: 35),
-                  SizedBox(width: 13),
+                  Icon(
+                    Icons.pregnant_woman_rounded,
+                    color: blue,
+                    size: 38,
+                  ),
+                  SizedBox(width: 14),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Poli Kandungan',
@@ -132,7 +150,7 @@ class DoctorSelectionPage extends StatelessWidget {
                         Text(
                           'Layanan kesehatan ibu dan kehamilan',
                           style: TextStyle(
-                            color: Color(0xFF4E6380),
+                            color: Colors.blueGrey,
                             fontSize: 12,
                           ),
                         ),
@@ -142,7 +160,9 @@ class DoctorSelectionPage extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(height: 25),
+
             const Text(
               'Dokter Konsultasi',
               style: TextStyle(
@@ -151,32 +171,32 @@ class DoctorSelectionPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+
+            const SizedBox(height: 13),
+
+            // KARTU DOKTER
             Container(
-              padding: const EdgeInsets.all(18),
+              padding: const EdgeInsets.all(19),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(23),
-                border: Border.all(color: const Color(0xFFE2EAF4)),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x090E4C92),
-                    blurRadius: 12,
-                    offset: Offset(0, 5),
-                  ),
-                ],
+                border: Border.all(
+                  color: const Color(0xFFE2EAF4),
+                ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Container(
-                        width: 72,
-                        height: 72,
+                        width: 75,
+                        height: 75,
                         decoration: BoxDecoration(
                           color: lightBlue,
-                          borderRadius: BorderRadius.circular(19),
+                          borderRadius:
+                              BorderRadius.circular(18),
                         ),
                         child: const Icon(
                           Icons.medical_services_rounded,
@@ -187,14 +207,15 @@ class DoctorSelectionPage extends StatelessWidget {
                       const SizedBox(width: 13),
                       const Expanded(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
                             Text(
                               'dr. Salsabila Putri, Sp.OG',
                               style: TextStyle(
                                 color: navy,
-                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
                             ),
                             SizedBox(height: 6),
@@ -203,7 +224,6 @@ class DoctorSelectionPage extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.blueGrey,
                                 fontSize: 12,
-                                height: 1.4,
                               ),
                             ),
                           ],
@@ -211,7 +231,9 @@ class DoctorSelectionPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 17),
+
+                  const SizedBox(height: 16),
+
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -224,52 +246,95 @@ class DoctorSelectionPage extends StatelessWidget {
                     child: const Text(
                       'Dokter Simulasi',
                       style: TextStyle(
-                        color: teal,
-                        fontSize: 11,
+                        color: Color(0xFF14846C),
                         fontWeight: FontWeight.bold,
+                        fontSize: 11,
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 17),
                   const Divider(),
-                  const SizedBox(height: 13),
+                  const SizedBox(height: 12),
+
                   _infoItem(
-                    icon: Icons.favorite_outline_rounded,
+                    icon: Icons.favorite_outline,
                     title: 'Bidang Konsultasi',
-                    subtitle: 'Kesehatan ibu, informasi kehamilan, '
+                    description:
+                        'Kesehatan ibu, kehamilan, '
                         'dan kesehatan reproduksi.',
                   ),
-                  const SizedBox(height: 18),
+
                   _infoItem(
-                    icon: Icons.chat_bubble_outline_rounded,
+                    icon: Icons.chat_bubble_outline,
                     title: 'Metode Konsultasi',
-                    subtitle: 'Percakapan melalui fitur Chat Dokter.',
+                    description:
+                        'Konsultasi melalui pesan '
+                        'di aplikasi TeleCare AI.',
                   ),
-                  const SizedBox(height: 18),
+
                   _infoItem(
-                    icon: Icons.info_outline_rounded,
-                    title: 'Informasi Layanan',
-                    subtitle: 'Profil dan konsultasi ini digunakan untuk '
-                        'demonstrasi aplikasi TeleCare AI.',
+                    icon: Icons.info_outline,
+                    title: 'Jenis Layanan',
+                    description:
+                        'Simulasi konsultasi untuk '
+                        'demonstrasi tugas kuliah.',
                   ),
-                  const SizedBox(height: 23),
+
+                  const Divider(),
+                  const SizedBox(height: 12),
+
+                  // BIAYA KONSULTASI
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: lightBlue,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Biaya Konsultasi (Simulasi)',
+                            style: TextStyle(
+                              color: navy,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Rp35.000',
+                          style: TextStyle(
+                            color: blue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 17),
+
+                  // TOMBOL PEMBAYARAN
                   SizedBox(
                     width: double.infinity,
                     height: 52,
                     child: FilledButton.icon(
-                      onPressed: () => _startConsultation(context),
+                      onPressed: () => _openPayment(context),
                       style: FilledButton.styleFrom(
                         backgroundColor: blue,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius:
+                              BorderRadius.circular(15),
                         ),
                       ),
-                      icon: const Icon(Icons.chat_rounded, size: 20),
+                      icon: const Icon(Icons.payment_rounded),
                       label: const Text(
-                        'Mulai Konsultasi',
+                        'Lanjut ke Pembayaran',
                         style: TextStyle(
-                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -278,7 +343,9 @@ class DoctorSelectionPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 22),
+
+            const SizedBox(height: 20),
+
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -286,15 +353,20 @@ class DoctorSelectionPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: const Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.verified_user_outlined, color: blue),
+                  Icon(
+                    Icons.info_outline,
+                    color: blue,
+                  ),
                   SizedBox(width: 11),
                   Expanded(
                     child: Text(
-                      'Layanan konsultasi ini merupakan simulasi untuk '
-                      'tugas kuliah. Gunakan data fiktif dan jangan '
-                      'memasukkan informasi medis pribadi.',
+                      'Profil dokter dan biaya '
+                      'hanya digunakan untuk simulasi. '
+                      'Tidak ada layanan medis atau '
+                      'penagihan sungguhan.',
                       style: TextStyle(
                         color: navy,
                         fontSize: 12,
